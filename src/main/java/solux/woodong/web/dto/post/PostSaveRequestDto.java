@@ -1,4 +1,4 @@
-package solux.woodong.web.dto;
+package solux.woodong.web.dto.post;
 
 import lombok.Builder;
 import lombok.Getter;

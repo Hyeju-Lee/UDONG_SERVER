@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solux.woodong.web.domain.posts.Post;
 import solux.woodong.web.domain.posts.PostRepository;
-import solux.woodong.web.dto.PostResponseDto;
-import solux.woodong.web.dto.PostSaveRequestDto;
-import solux.woodong.web.dto.PostUpdateRequestDto;
+import solux.woodong.web.dto.post.PostResponseDto;
+import solux.woodong.web.dto.post.PostSaveRequestDto;
+import solux.woodong.web.dto.post.PostUpdateRequestDto;
 
 @RequiredArgsConstructor   //생성자를 생성하여 이를 통해 스프링 bean을 주입 (스프링 컨테이너에 있는 postservice에 postrepository 연결)
 @Service

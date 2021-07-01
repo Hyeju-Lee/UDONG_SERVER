@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity     //jpa 어노테이션
-public class Post {  //db 테이블과 매칭될 클래스
+public class Post extends BaseTimeEntity{  //db 테이블과 매칭될 클래스
 
     @Id  //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //auto_increment(기본 키의 자동 증가)

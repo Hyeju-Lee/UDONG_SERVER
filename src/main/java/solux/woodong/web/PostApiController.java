@@ -2,9 +2,9 @@ package solux.woodong.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import solux.woodong.web.dto.PostResponseDto;
-import solux.woodong.web.dto.PostSaveRequestDto;
-import solux.woodong.web.dto.PostUpdateRequestDto;
+import solux.woodong.web.dto.post.PostResponseDto;
+import solux.woodong.web.dto.post.PostSaveRequestDto;
+import solux.woodong.web.dto.post.PostUpdateRequestDto;
 import solux.woodong.web.service.post.PostService;
 
 @RequiredArgsConstructor //생성자를 통해 bean 주입(스프링 컨테이너에 있는 postService를 controller에 연결시켜줌)

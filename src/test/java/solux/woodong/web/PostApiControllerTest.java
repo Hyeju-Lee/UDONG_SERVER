@@ -12,11 +12,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.w3c.dom.html.HTMLTableElement;
 import solux.woodong.web.domain.posts.Post;
 import solux.woodong.web.domain.posts.PostRepository;
-import solux.woodong.web.dto.PostSaveRequestDto;
-import solux.woodong.web.dto.PostUpdateRequestDto;
+import solux.woodong.web.dto.post.PostSaveRequestDto;
+import solux.woodong.web.dto.post.PostUpdateRequestDto;
 
 import java.util.List;
 
