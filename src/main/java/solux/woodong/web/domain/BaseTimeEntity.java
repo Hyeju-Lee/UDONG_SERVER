@@ -1,4 +1,4 @@
-package solux.woodong.web.domain.posts;
+package solux.woodong.web.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
