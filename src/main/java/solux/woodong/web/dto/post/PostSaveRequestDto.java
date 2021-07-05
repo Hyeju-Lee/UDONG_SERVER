@@ -11,11 +11,14 @@ public class PostSaveRequestDto {
     private String title;
     private String content;
     private String author;
+    private int teamNumber;
+
     @Builder
-    public PostSaveRequestDto(String title, String content, String author) {
+    public PostSaveRequestDto(String title, String content, String author, int teamNumber) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.teamNumber = teamNumber;
     }
 
     public Post toEntity() {
@@ -23,6 +26,7 @@ public class PostSaveRequestDto {
                 .title(title)
                 .content(content)
                 .author(author)
+                .teamNumber(teamNumber)
                 .build();
     }
 }

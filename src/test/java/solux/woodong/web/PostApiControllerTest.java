@@ -46,10 +46,12 @@ public class PostApiControllerTest {
         //given
         String title = "title";
         String content = "content";
+        int teamNumber = 3;
         PostSaveRequestDto requestDto = PostSaveRequestDto.builder()
                 .title(title)
                 .content(content)
                 .author("author")
+                .teamNumber(teamNumber)
                 .build();
         String url = "http://localhost:" +port + "/api/v1/post";
         //when
@@ -61,6 +63,7 @@ public class PostApiControllerTest {
         List<Post> all = postRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
+        assertThat(all.get(0).getTeamNumber()).isEqualTo(teamNumber);
     }
 
     @Test

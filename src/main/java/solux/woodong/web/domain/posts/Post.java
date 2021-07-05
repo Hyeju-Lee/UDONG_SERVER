@@ -24,11 +24,14 @@ public class Post extends BaseTimeEntity{  //db 테이블과 매칭될 클래스
 
     private String author;
 
+    private int teamNumber;
+
     @Builder
-    public Post(String title, String content, String author) {
+    public Post(String title, String content, String author, int teamNumber) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.teamNumber = teamNumber;
     }
 
     public void update(String title, String content) {
