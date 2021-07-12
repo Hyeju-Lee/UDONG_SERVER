@@ -2,10 +2,13 @@ package solux.woodong.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.dto.notice.NoticeResponseDto;
 import solux.woodong.web.dto.notice.NoticeSaveRequestDto;
 import solux.woodong.web.dto.notice.NoticeUpdateRequestDto;
 import solux.woodong.web.service.notice.NoticeService;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,7 +24,17 @@ public class NoticeApiController {
     }
 
     @GetMapping("/api/udong/notice/{id}")
-    public NoticeResponseDto findById (@PathVariable Long id) {return noticeService.findById(id);};
+    public NoticeResponseDto findById (@PathVariable Long id) {return noticeService.findById(id);}
+
+    @GetMapping("/api/udong/notice")
+    public List<Notice> getNoticeList() {
+        return noticeService.findAll();
+    }
+
+    @DeleteMapping("/api/udong/notice/{id}")
+    public void deleteNotice(@PathVariable Long id) {
+        noticeService.delete(id);
+    }
 
 
 }

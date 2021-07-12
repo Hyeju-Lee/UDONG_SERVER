@@ -2,10 +2,13 @@ package solux.woodong.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import solux.woodong.web.domain.posts.Post;
 import solux.woodong.web.dto.post.PostResponseDto;
 import solux.woodong.web.dto.post.PostSaveRequestDto;
 import solux.woodong.web.dto.post.PostUpdateRequestDto;
 import solux.woodong.web.service.post.PostService;
+
+import java.util.List;
 
 @RequiredArgsConstructor //생성자를 통해 bean 주입(스프링 컨테이너에 있는 postService를 controller에 연결시켜줌)
 @RestController //controller는 view를 반환하기 위해 쓰는 것이고 restcontroller는 controller + responseBody로 json 데이터 반환
@@ -28,4 +31,15 @@ public class PostApiController {
     public PostResponseDto findById (@PathVariable Long id) {
         return postService.findById(id);
     }
+
+    @GetMapping("/api/v1/post")
+    public List<Post> getPostList() {
+        return postService.findAll();
+    }
+
+    @DeleteMapping("/api/v1/post/{id}")
+    public void deletePost(@PathVariable Long id) {
+        postService.delete(id);
+    }
+
 }

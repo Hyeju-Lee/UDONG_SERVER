@@ -9,6 +9,8 @@ import solux.woodong.web.dto.post.PostResponseDto;
 import solux.woodong.web.dto.post.PostSaveRequestDto;
 import solux.woodong.web.dto.post.PostUpdateRequestDto;
 
+import java.util.List;
+
 @RequiredArgsConstructor   //생성자를 생성하여 이를 통해 스프링 bean을 주입 (스프링 컨테이너에 있는 postservice에 postrepository 연결)
 @Service
 public class PostService {
@@ -32,5 +34,16 @@ public class PostService {
         Post entity = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         return new PostResponseDto(entity);
+    }
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Post entity = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        postRepository.delete(entity);
     }
 }

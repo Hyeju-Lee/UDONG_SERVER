@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.domain.notice.NoticeRepository;
-import solux.woodong.web.domain.posts.Post;
 import solux.woodong.web.dto.notice.NoticeResponseDto;
 import solux.woodong.web.dto.notice.NoticeSaveRequestDto;
 import solux.woodong.web.dto.notice.NoticeUpdateRequestDto;
-import solux.woodong.web.dto.post.PostResponseDto;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -32,5 +32,11 @@ public class NoticeService {
         Notice entity = noticeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         return new NoticeResponseDto(entity);
+    }
+
+    public List<Notice> findAll() {return noticeRepository.findAll();}
+
+    public void delete(Long id) {
+        noticeRepository.deleteById(id);
     }
 }
