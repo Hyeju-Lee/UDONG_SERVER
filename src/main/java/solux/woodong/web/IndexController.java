@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import solux.woodong.web.config.auth.dto.SessionUser;
+import solux.woodong.web.domain.user.User;
 import solux.woodong.web.service.post.PostService;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,15 @@ public class IndexController {
             model.addAttribute("userName", user.getName());
         }
         return "index";
+    }
+
+    @GetMapping("/api/udong/user")
+    public String findUserEmail() {
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if (user != null) {
+            return user.getEmail();
+        }
+        return "";
     }
 
     @GetMapping("/posts/save")
