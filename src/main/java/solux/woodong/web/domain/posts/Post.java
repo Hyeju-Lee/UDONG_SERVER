@@ -20,7 +20,7 @@ public class Post extends BaseTimeEntity {  //db 테이블과 매칭될 클래�
     @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
     private String author;
