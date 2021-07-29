@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
 import solux.woodong.web.domain.notice.Notice;
+import solux.woodong.web.domain.notice.NoticeRepository;
 import solux.woodong.web.dto.notice.NoticeResponseDto;
 import solux.woodong.web.dto.notice.NoticeSaveRequestDto;
 import solux.woodong.web.dto.notice.NoticeUpdateRequestDto;
@@ -16,6 +17,8 @@ import java.util.List;
 @RestController
 public class NoticeApiController {
     private final NoticeService noticeService;
+
+    private final NoticeRepository noticeRepository;
 
     private final ClubRepository clubRepository;
 
@@ -46,6 +49,12 @@ public class NoticeApiController {
 
     @DeleteMapping("/api/udong/notice/{id}")
     public void deleteNotice(@PathVariable Long id) {
+        Notice notice = noticeRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 notice 없음"));
+        notice = Notice.builder()
+                .title(notice.getTitle())
+                .content(notice.getContent())
+                .author(notice.getAuthor())
+                .club(null).build();
         noticeService.delete(id);
     }
 
