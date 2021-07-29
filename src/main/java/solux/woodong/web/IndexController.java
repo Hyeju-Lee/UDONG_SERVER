@@ -34,7 +34,7 @@ public class IndexController {
         if (user != null) {
             return user.getEmail();
         }
-        return "";
+        return "user 이메일 로드 오류";
     }
 
     @GetMapping("/posts/save")
