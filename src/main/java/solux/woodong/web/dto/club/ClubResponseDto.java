@@ -13,6 +13,7 @@ public class ClubResponseDto {
     private String name;
     private int generation;
     private String info;
+    private String clubCode;
     private List<Notice> notices = new ArrayList<Notice>();
 
     public ClubResponseDto(Club entity) {
@@ -20,6 +21,7 @@ public class ClubResponseDto {
         this.name = entity.getName();
         this.generation = entity.getGeneration();
         this.info = entity.getInfo();
+        this.clubCode = entity.getClubCode();
         this.notices = entity.getNotices();
     }
 }

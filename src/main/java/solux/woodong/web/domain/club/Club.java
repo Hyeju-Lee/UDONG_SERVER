@@ -27,14 +27,18 @@ public class Club {
     @Column(columnDefinition = "LONGTEXT")
     private String info;
 
+    @Column(nullable = false)
+    private String clubCode;
+
     @JsonManagedReference
     @OneToMany (mappedBy = "club")
     private List<Notice> notices = new ArrayList<Notice>();
 
     @Builder
-    public Club(String name, int generation, String info) {
+    public Club(String name, int generation, String info, String clubCode) {
         this.name = name;
         this.generation = generation;
         this.info = info;
+        this.clubCode = clubCode;
     }
 }

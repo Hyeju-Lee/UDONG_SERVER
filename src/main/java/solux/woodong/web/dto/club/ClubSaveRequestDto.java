@@ -11,12 +11,14 @@ public class ClubSaveRequestDto {
     private String name;
     private int generation;
     private String info;
+    private String clubCode;
 
     @Builder
-    public ClubSaveRequestDto(String name, int generation, String info) {
+    public ClubSaveRequestDto(String name, int generation, String info, String clubCode) {
         this.name = name;
         this.generation = generation;
         this.info = info;
+        this.clubCode = clubCode;
     }
 
     public Club toEntity() {
@@ -24,6 +26,7 @@ public class ClubSaveRequestDto {
                 .name(name)
                 .generation(generation)
                 .info(info)
+                .clubCode(clubCode)
                 .build();
     }
 }
