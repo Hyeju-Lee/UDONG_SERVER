@@ -4,6 +4,7 @@ import lombok.Getter;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.domain.posts.Post;
+import solux.woodong.web.domain.receipt.Receipt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class ClubResponseDto {
     private String clubCode;
     private List<Notice> notices = new ArrayList<Notice>();
     private List<Post> posts = new ArrayList<>();
+    private List<Receipt> receipts = new ArrayList<>();
 
     public ClubResponseDto(Club entity) {
         this.id = entity.getId();
@@ -26,5 +28,6 @@ public class ClubResponseDto {
         this.clubCode = entity.getClubCode();
         this.notices = entity.getNotices();
         this.posts = entity.getPosts();
+        this.receipts = entity.getReceipts();
     }
 }

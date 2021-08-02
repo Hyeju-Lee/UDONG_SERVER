@@ -1,9 +1,11 @@
 package solux.woodong.web.domain.receipt;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.woodong.web.domain.BaseTimeEntity;
+import solux.woodong.web.domain.club.Club;
 
 import javax.persistence.*;
 
@@ -27,13 +29,19 @@ public class Receipt extends BaseTimeEntity {
 
     private String useDate;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "Club_ID")
+    private Club club;
+
     @Builder
-    public Receipt(String cost, String title, String content, String picture, String useDate) {
+    public Receipt(String cost, String title, String content, String picture, String useDate, Club club) {
         this.cost = cost;
         this.title = title;
         this.content = content;
         this.picture = picture;
         this.useDate = useDate;
+        this.club = club;
     }
 
     public void update(String cost, String title, String content, String picture, String useDate) {
