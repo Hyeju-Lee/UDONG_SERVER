@@ -1,10 +1,12 @@
 package solux.woodong.web.domain.posts;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.woodong.web.domain.BaseTimeEntity;
+import solux.woodong.web.domain.club.Club;
 
 import javax.persistence.*;
 
@@ -27,12 +29,19 @@ public class Post extends BaseTimeEntity {  //db 테이블과 매칭될 클래�
 
     private int teamNumber;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "Club_ID")
+    private Club club;
+
+
     @Builder
-    public Post(String title, String content, String author, int teamNumber) {
+    public Post(String title, String content, String author, int teamNumber, Club club) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.teamNumber = teamNumber;
+        this.club = club;
     }
 
     public void update(String title, String content) {

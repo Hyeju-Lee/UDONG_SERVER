@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.woodong.web.domain.notice.Notice;
+import solux.woodong.web.domain.posts.Post;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class Club {
     @JsonManagedReference
     @OneToMany (mappedBy = "club")
     private List<Notice> notices = new ArrayList<Notice>();
+
+    @JsonManagedReference
+    @OneToMany (mappedBy = "club")
+    private List<Post> posts = new ArrayList<>();
 
     @Builder
     public Club(String name, int generation, String info, String clubCode) {
