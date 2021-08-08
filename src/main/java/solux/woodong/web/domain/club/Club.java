@@ -1,5 +1,6 @@
 package solux.woodong.web.domain.club;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +46,7 @@ public class Club {
     @OneToMany (mappedBy = "club")
     private List<Receipt> receipts = new ArrayList<>();
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "club")
     private List<ClubUser> clubUsers = new ArrayList<>();
 
