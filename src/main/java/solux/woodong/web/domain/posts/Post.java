@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.woodong.web.domain.BaseTimeEntity;
 import solux.woodong.web.domain.club.Club;
+import solux.woodong.web.domain.user.User;
 
 import javax.persistence.*;
 
@@ -31,12 +32,13 @@ public class Post extends BaseTimeEntity {  //db 테이블과 매칭될 클래�
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "Club_ID")
+    @JoinColumn(name = "Club_Id")
     private Club club;
 
 
     @Builder
-    public Post(String title, String content, String author, int teamNumber, Club club) {
+    public Post(String title, String content, String author, int teamNumber
+            , Club club) {
         this.title = title;
         this.content = content;
         this.author = author;
