@@ -6,6 +6,8 @@ import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
 import solux.woodong.web.domain.receipt.Receipt;
 import solux.woodong.web.domain.receipt.ReceiptRepository;
+import solux.woodong.web.domain.user.User;
+import solux.woodong.web.domain.user.UserRepository;
 import solux.woodong.web.dto.receipt.ReceiptResponseDto;
 import solux.woodong.web.dto.receipt.ReceiptSaveRequestDto;
 import solux.woodong.web.dto.receipt.ReceiptUpdateRequestDto;
@@ -22,17 +24,23 @@ public class ReceiptApiController {
 
     private final ClubRepository clubRepository;
 
-    @PostMapping("/api/udong/receipt/{club_id}")
-    public Long save(@PathVariable Long club_id, @RequestBody ReceiptSaveRequestDto requestDto) {
+    private final UserRepository userRepository;
+
+    @PostMapping("/api/udong/receipt/{club_id}/{userId}")
+    public Long save(@PathVariable Long club_id, @PathVariable Long userId
+            , @RequestBody ReceiptSaveRequestDto requestDto) {
         Club clubReceipt = clubRepository.findById(club_id).orElseThrow(
                 ()->new IllegalArgumentException("오류"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new IllegalArgumentException("유저 오류"));
         requestDto = ReceiptSaveRequestDto.builder()
                 .cost(requestDto.getCost())
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
                 .picture(requestDto.getPicture())
                 .useDate(requestDto.getUseDate())
-                .club(clubReceipt).build();
+                .club(clubReceipt)
+                .user(user).build();
         return receiptService.save(requestDto);
     }
 

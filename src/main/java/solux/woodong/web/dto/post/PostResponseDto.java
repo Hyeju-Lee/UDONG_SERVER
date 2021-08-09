@@ -4,6 +4,7 @@ import lombok.Getter;
 import solux.woodong.web.domain.BaseTimeEntity;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.posts.Post;
+import solux.woodong.web.domain.user.User;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ public class PostResponseDto {
     private String content;
     private String author;
     private int teamNumber;
-    private Club club;
+    private User user;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
@@ -25,7 +26,7 @@ public class PostResponseDto {
         this.content = entity.getContent();
         this.author = entity.getAuthor();
         this.teamNumber = entity.getTeamNumber();
-        this.club = entity.getClub();
+        this.user = entity.getUser();
         this.createdDate = entity.getCreatedDate();
         this.modifiedDate = entity.getModifiedDate();
     }

@@ -37,6 +37,12 @@ public class User extends BaseTimeEntity {
     @OneToMany (mappedBy = "user")
     private List<Notice> notices = new ArrayList<>();
 
+    @OneToMany (mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany (mappedBy = "user")
+    private List<Receipt> receipts = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<ClubUser> clubUsers = new ArrayList<>();
