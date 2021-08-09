@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import solux.woodong.web.domain.clubRole.ClubRole;
 import solux.woodong.web.domain.clubUser.ClubUser;
 import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.domain.posts.Post;
@@ -47,6 +48,10 @@ public class Club {
     @JsonIgnore
     @OneToMany(mappedBy = "club")
     private List<ClubUser> clubUsers = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "club")
+    private List<ClubRole> clubRoles = new ArrayList<>();
 
     @Builder
     public Club(String name, int generation, String info, String clubCode) {
