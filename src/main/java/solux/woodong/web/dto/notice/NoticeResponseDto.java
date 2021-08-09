@@ -3,6 +3,7 @@ package solux.woodong.web.dto.notice;
 import lombok.Getter;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.notice.Notice;
+import solux.woodong.web.domain.user.User;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ public class NoticeResponseDto {
     private String title;
     private String content;
     private String author;
-    private Club club;
+    private User user;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
@@ -21,8 +22,8 @@ public class NoticeResponseDto {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.author = entity.getAuthor();
-        this.club = entity.getClub();
         this.createdDate = entity.getCreatedDate();
         this.modifiedDate = entity.getModifiedDate();
+        this.user = entity.getUser();
     }
 }

@@ -1,12 +1,16 @@
 package solux.woodong.web.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.woodong.web.domain.BaseTimeEntity;
 import solux.woodong.web.domain.clubUser.ClubUser;
+import solux.woodong.web.domain.notice.Notice;
+import solux.woodong.web.domain.posts.Post;
+import solux.woodong.web.domain.receipt.Receipt;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,7 +34,10 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @JsonBackReference
+    @OneToMany (mappedBy = "user")
+    private List<Notice> notices = new ArrayList<>();
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<ClubUser> clubUsers = new ArrayList<>();
 

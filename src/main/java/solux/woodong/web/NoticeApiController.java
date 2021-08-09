@@ -6,6 +6,8 @@ import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
 import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.domain.notice.NoticeRepository;
+import solux.woodong.web.domain.user.User;
+import solux.woodong.web.domain.user.UserRepository;
 import solux.woodong.web.dto.notice.NoticeResponseDto;
 import solux.woodong.web.dto.notice.NoticeSaveRequestDto;
 import solux.woodong.web.dto.notice.NoticeUpdateRequestDto;
@@ -21,16 +23,22 @@ public class NoticeApiController {
     private final NoticeRepository noticeRepository;
 
     private final ClubRepository clubRepository;
+    private final UserRepository userRepository;
 
-    @PostMapping("/api/udong/notice/{club_id}")
-    public Long save(@PathVariable Long club_id, @RequestBody NoticeSaveRequestDto requestDto) {
+    @PostMapping("/api/udong/notice/{club_id}/{userId}")
+    public Long save(@PathVariable Long club_id, @PathVariable Long userId,
+                     @RequestBody NoticeSaveRequestDto requestDto) {
         Club clubNotice = clubRepository.findById(club_id).orElseThrow(
-                ()->new IllegalArgumentException("오류"));
+                ()->new IllegalArgumentException("클럽 오류"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new IllegalArgumentException("유저 오류"));
         requestDto = NoticeSaveRequestDto.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
                 .author(requestDto.getAuthor())
-                .club(clubNotice).build();
+                .club(clubNotice)
+                .user(user)
+                .build();
         return noticeService.save(requestDto);
     }
 
