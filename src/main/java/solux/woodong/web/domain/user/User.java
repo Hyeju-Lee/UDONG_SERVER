@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.woodong.web.domain.BaseTimeEntity;
+import solux.woodong.web.domain.clubRole.ClubRole;
+import solux.woodong.web.domain.clubRoleUser.ClubRoleUser;
 import solux.woodong.web.domain.clubUser.ClubUser;
 import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.domain.posts.Post;
@@ -46,6 +48,10 @@ public class User extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<ClubUser> clubUsers = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<ClubRoleUser> clubRoleUsers = new ArrayList<>();
 
     @Builder
     public User(String name, String email, Role role) {
