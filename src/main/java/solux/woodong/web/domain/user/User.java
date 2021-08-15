@@ -33,8 +33,8 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    //@Enumerated(EnumType.STRING)
+    //private Role role;
 
     @OneToMany (mappedBy = "user")
     private List<Notice> notices = new ArrayList<>();
@@ -54,10 +54,10 @@ public class User extends BaseTimeEntity {
     private List<ClubRoleUser> clubRoleUsers = new ArrayList<>();
 
     @Builder
-    public User(String name, String email, Role role) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.role = role;
+        //this.role = role;
     }
 
     public User update(String name) {
@@ -65,8 +65,8 @@ public class User extends BaseTimeEntity {
         return this;
     }
 
-    public String getRoleKey() {
+    /*public String getRoleKey() {
         return this.role.getKey();
-    }
+    }*/
 
 }

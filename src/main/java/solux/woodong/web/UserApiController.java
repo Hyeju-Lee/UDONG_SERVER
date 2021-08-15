@@ -1,10 +1,10 @@
 package solux.woodong.web;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import solux.woodong.web.config.auth.dto.SessionUser;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.web.bind.annotation.*;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.clubRole.ClubRole;
 import solux.woodong.web.domain.clubRoleUser.ClubRoleUser;
@@ -12,19 +12,25 @@ import solux.woodong.web.domain.clubUser.ClubUser;
 import solux.woodong.web.domain.role.Roles;
 import solux.woodong.web.domain.user.User;
 import solux.woodong.web.domain.user.UserRepository;
+import solux.woodong.web.dto.user.IdTokenSaveDto;
 import solux.woodong.web.dto.user.UserResponseDto;
+import solux.woodong.web.dto.user.UserSaveDto;
+import solux.woodong.web.service.WebClientService;
+import solux.woodong.web.service.user.UserService;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
 public class UserApiController {
-    private final HttpSession httpSession;
+    //private final HttpSession httpSession;
     private final UserRepository userRepository;
+    private final WebClientService webClientService;
+    private final UserService userService;
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public UserResponseDto findUser() {
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if (user != null) {
@@ -33,6 +39,40 @@ public class UserApiController {
             return new UserResponseDto(entity);
         }
         return null;
+    }*/
+
+    @PostMapping("/api/udong/idToken") //idToken 받아와서 user로 저장(user id를 string 형식으로 return 하게 함)
+    public String getIdToken(@RequestBody IdTokenSaveDto idTokenSaveDto) {
+        String idToken = idTokenSaveDto.getIdToken();
+        String response = webClientService.getUser(idToken);
+        JSONParser parser = new JSONParser();
+        UserSaveDto userSaveDto = null;
+        try {
+            Object obj = parser.parse(response);
+            JSONObject jsonObject = (JSONObject) obj;
+
+            String name = (String) jsonObject.get("name");
+            String email = (String) jsonObject.get("email");
+            if (!userRepository.findByEmail(email).isPresent()) {
+                userSaveDto = UserSaveDto.builder()
+                        .name(name)
+                        .email(email)
+                        .build();
+            }
+            else {
+                User user = userRepository.findByEmail(email)
+                        .orElseThrow();
+                return user.getId().toString();
+            }
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        return userService.save(userSaveDto).toString();
+    }
+
+    @GetMapping("/api/udong/user/findAll")
+    public List<User> getUserList() {
+        return userService.findAll();
     }
 
     @GetMapping("/api/udong/user/club/{userId}")
