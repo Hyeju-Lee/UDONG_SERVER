@@ -39,6 +39,22 @@ public class ClubRoleController {
         return clubRoleService.save(saveDto);
     }
 
+    @PostMapping("/api/udong/clubRole/roles/{clubId}") //한번에 role 여러개 추가
+    public void saveRoles(@PathVariable Long clubId, @RequestBody RoleSaveRequestDto[] requestDtos) {
+        for (RoleSaveRequestDto dto : requestDtos) {
+            Long roleId = roleService.save(dto);
+            Roles roles = roleRepository.findById(roleId)
+                    .orElseThrow(()->new IllegalArgumentException("해당 role 없음"));
+            Club club = clubRepository.findById(clubId)
+                    .orElseThrow(()->new IllegalArgumentException("해당 club 없음"));
+            ClubRoleSaveDto saveDto = ClubRoleSaveDto.builder()
+                    .club(club)
+                    .roles(roles)
+                    .build();
+            clubRoleService.save(saveDto);
+        }
+    }
+
     @GetMapping("/api/udong/clubRole/{clubId}/{roleId}")
     public Long findClubRole(@PathVariable Long clubId, @PathVariable Long roleId) {
         List<ClubRole> clubRoles = clubRoleRepository.findAll();

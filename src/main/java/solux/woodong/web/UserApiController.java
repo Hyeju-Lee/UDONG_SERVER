@@ -6,9 +6,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 import solux.woodong.web.domain.club.Club;
+import solux.woodong.web.domain.club.ClubRepository;
 import solux.woodong.web.domain.clubRole.ClubRole;
 import solux.woodong.web.domain.clubRoleUser.ClubRoleUser;
 import solux.woodong.web.domain.clubUser.ClubUser;
+import solux.woodong.web.domain.clubUser.ClubUserRepository;
 import solux.woodong.web.domain.role.Roles;
 import solux.woodong.web.domain.user.User;
 import solux.woodong.web.domain.user.UserRepository;
@@ -29,6 +31,7 @@ public class UserApiController {
     private final UserRepository userRepository;
     private final WebClientService webClientService;
     private final UserService userService;
+    private final ClubUserRepository clubUserRepository;
 
     /*@GetMapping("/")
     public UserResponseDto findUser() {
@@ -103,6 +106,35 @@ public class UserApiController {
 
         }
         return clubRole.getRoles();
+    }
+
+    @GetMapping("/api/udong/user/clubUser/{userId}/{clubId}")
+    public Long getClubUserId(@PathVariable Long userId, @PathVariable Long clubId) {
+        List<ClubUser> clubUsers = clubUserRepository.findAll();
+        for (ClubUser cu : clubUsers) {
+            if (cu.getClub().getId() == clubId) {
+                if (cu.getUser().getId() == userId) {
+                    return cu.getId();
+                }
+            }
+        }
+        return 0l;
+    }
+
+    @GetMapping("/api/udong/user/teamNumber/{userId}/{clubId}")
+    public int getTeamNum(@PathVariable Long userId, @PathVariable Long clubId) {
+        List<ClubUser> clubUsers = clubUserRepository.findAll();
+        Long clubUserId = 0l;
+        for (ClubUser cu : clubUsers) {
+            if (cu.getClub().getId() == clubId) {
+                if (cu.getUser().getId() == userId) {
+                    clubUserId = cu.getId();
+                }
+            }
+        }
+        ClubUser clubUser = clubUserRepository.findById(clubUserId)
+                .orElseThrow(()->new IllegalArgumentException());
+        return clubUser.getTeamNumber();
     }
 
 }

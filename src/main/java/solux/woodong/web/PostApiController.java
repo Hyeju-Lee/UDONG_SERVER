@@ -37,7 +37,7 @@ public class PostApiController {
         requestDto = PostSaveRequestDto.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
-                .author(requestDto.getAuthor())
+                .author(user.getName())
                 .teamNumber(requestDto.getTeamNumber())
                 .club(clubPost)
                 .user(user)
