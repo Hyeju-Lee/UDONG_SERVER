@@ -64,6 +64,33 @@ public class ClubController {
         return roles;
     }
 
+    @GetMapping("/api/udong/club/clubCode/check/{clubCode}")
+    public boolean checkClubCode(@PathVariable String clubCode) {
+        List<Club> clubs = clubRepository.findAll();
+        boolean check = false;
+        for (Club club : clubs) {
+            if (clubCode.equals(club.getClubCode())) {
+                check = true;
+            }
+        }
+        return check;
+    }
+
+    @GetMapping("/api/udong/club/clubCode/{clubCode}")
+    public Club findClub(@PathVariable String clubCode) {
+        List<Club> clubs = clubRepository.findAll();
+        Club result = new Club();
+        for (Club club : clubs) {
+            if (clubCode.equals(club.getClubCode())) {
+                result = club;
+            }
+            else {
+                result = null;
+            }
+        }
+        return result;
+    }
+
     @DeleteMapping("/api/udong/club/{id}")
     public void deleteClub(@PathVariable Long id) {
         clubService.delete(id);
