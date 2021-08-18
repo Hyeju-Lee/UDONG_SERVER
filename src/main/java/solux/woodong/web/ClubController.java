@@ -83,12 +83,10 @@ public class ClubController {
         for (Club club : clubs) {
             if (clubCode.equals(club.getClubCode())) {
                 result = club;
-            }
-            else {
-                result = null;
+                return result;
             }
         }
-        return result;
+        return null;
     }
 
     @DeleteMapping("/api/udong/club/{id}")
