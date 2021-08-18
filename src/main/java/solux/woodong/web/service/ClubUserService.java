@@ -10,6 +10,8 @@ import solux.woodong.web.dto.clubUser.ClubUserResponseDto;
 import solux.woodong.web.dto.clubUser.ClubUserSaveDto;
 import solux.woodong.web.dto.notice.NoticeUpdateRequestDto;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ClubUserService {
@@ -31,6 +33,10 @@ public class ClubUserService {
         ClubUser entity = clubUserRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 clubuser없음"));
         return new ClubUserResponseDto(entity);
+    }
+
+    public List<ClubUser> findAll() {
+        return clubUserRepository.findAll();
     }
 
 

@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
+import solux.woodong.web.domain.clubUser.ClubUser;
 import solux.woodong.web.domain.user.User;
 import solux.woodong.web.domain.user.UserRepository;
 import solux.woodong.web.dto.clubUser.ClubUserResponseDto;
 import solux.woodong.web.dto.clubUser.ClubUserSaveDto;
 import solux.woodong.web.service.ClubUserService;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,5 +43,10 @@ public class ClubUserController {
     @GetMapping("/api/udong/clubUser/{id}")
     public ClubUserResponseDto findById (@PathVariable Long id) {
         return clubUserService.findById(id);
+    }
+
+    @GetMapping("/api/udong/clubUser/findAll")
+    public List<ClubUser> findAll(){
+        return clubUserService.findAll();
     }
 }
