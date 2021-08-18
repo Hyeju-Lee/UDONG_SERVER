@@ -6,6 +6,7 @@ import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
 import solux.woodong.web.domain.clubRole.ClubRole;
 import solux.woodong.web.domain.clubUser.ClubUser;
+import solux.woodong.web.domain.notice.Notice;
 import solux.woodong.web.domain.role.Roles;
 import solux.woodong.web.domain.user.User;
 import solux.woodong.web.dto.club.ClubResponseDto;
@@ -87,6 +88,20 @@ public class ClubController {
             }
         }
         return null;
+    }
+
+    @GetMapping("/api/udong/club/notice/{clubId}")
+    public List<Notice> getNoticeList(@PathVariable Long clubId) {
+        Club club = clubRepository.findById(clubId)
+                .orElseThrow();
+        List<Notice> notices = club.getNotices();
+        Notice notice;
+        List<Notice> result = new ArrayList<>();
+        for (int i = notices.size()-1; i >= 0; i--) {
+            notice = notices.get(i);
+            result.add(notice);
+        }
+        return result;
     }
 
     @DeleteMapping("/api/udong/club/{id}")
