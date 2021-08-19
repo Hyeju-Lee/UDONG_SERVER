@@ -27,21 +27,37 @@ public class ReceiptApiController {
     private final UserRepository userRepository;
 
     @PostMapping("/api/udong/receipt/{club_id}/{userId}")
-    public Long save(@PathVariable Long club_id, @PathVariable Long userId
-            , @RequestBody ReceiptSaveRequestDto requestDto) {
+    public void save(@PathVariable Long club_id, @PathVariable Long userId
+            , @RequestBody ReceiptSaveRequestDto[] requestDtos) {
         Club clubReceipt = clubRepository.findById(club_id).orElseThrow(
                 ()->new IllegalArgumentException("오류"));
         User user = userRepository.findById(userId)
                 .orElseThrow(()->new IllegalArgumentException("유저 오류"));
-        requestDto = ReceiptSaveRequestDto.builder()
-                .cost(requestDto.getCost())
-                .title(requestDto.getTitle())
-                .content(requestDto.getContent())
-                .picture(requestDto.getPicture())
-                .useDate(requestDto.getUseDate())
-                .club(clubReceipt)
-                .user(user).build();
-        return receiptService.save(requestDto);
+        for (ReceiptSaveRequestDto requestDto : requestDtos) {
+            requestDto = ReceiptSaveRequestDto.builder()
+                    .cost(requestDto.getCost())
+                    .title(requestDto.getTitle())
+                    .content(requestDto.getContent())
+                    .picture(requestDto.getPicture())
+                    .useDate(requestDto.getUseDate())
+                    .club(clubReceipt)
+                    .user(user).build();
+            receiptService.save(requestDto);
+        }
+    }
+
+    @GetMapping("/api/udong/receipt/{clubId}/{useDate}")
+    public List<Receipt> responseWithUseDate(@PathVariable Long clubId, @PathVariable String useDate) {
+        Club club = clubRepository.findById(clubId)
+                .orElseThrow();
+        List<Receipt> receipts = club.getReceipts();
+        List<Receipt> result = null;
+        for (Receipt receipt : receipts) {
+            if (receipt.getUseDate().equals(useDate)) {
+                result.add(receipt);
+            }
+        }
+        return result;
     }
 
     @PutMapping("/api/udong/receipt/{id}")
