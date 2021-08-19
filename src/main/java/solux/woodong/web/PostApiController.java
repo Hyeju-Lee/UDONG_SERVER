@@ -13,6 +13,7 @@ import solux.woodong.web.dto.post.PostSaveRequestDto;
 import solux.woodong.web.dto.post.PostUpdateRequestDto;
 import solux.woodong.web.service.post.PostService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor //생성자를 통해 bean 주입(스프링 컨테이너에 있는 postService를 controller에 연결시켜줌)
@@ -45,6 +46,21 @@ public class PostApiController {
         return postService.save(requestDto);
     }
 
+    @PostMapping("/api/udong/post/{clubId}")
+    public Long savePost(@PathVariable Long clubId, @RequestBody PostSaveRequestDto requestDto) {
+        Club clubPost = clubRepository.findById(clubId)
+                .orElseThrow(() -> new IllegalArgumentException("error"));
+        requestDto = PostSaveRequestDto.builder()
+                .title(requestDto.getTitle())
+                .content(requestDto.getContent())
+                .author(null)
+                .teamNumber(requestDto.getTeamNumber())
+                .club(clubPost)
+                .user(null)
+                .build();
+        return postService.save(requestDto);
+    }
+
     @PutMapping("/api/udong/post/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
         return postService.update(id, requestDto);
@@ -58,6 +74,20 @@ public class PostApiController {
     @GetMapping("/api/udong/post")
     public List<Post> getPostList() {
         return postService.findAll();
+    }
+
+    @GetMapping("/api/udong/post/teamNumber/{clubId}/{teamNumber}")
+    public List<Post> getListTeam(@PathVariable Long clubId, @PathVariable int teamNumber) {
+        Club clubPost = clubRepository.findById(clubId)
+                .orElseThrow(() -> new IllegalArgumentException("error"));
+        List<Post> posts = clubPost.getPosts();
+        List<Post> result = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getTeamNumber() == teamNumber) {
+                result.add(post);
+            }
+        }
+        return result;
     }
 
     @DeleteMapping("/api/udong/post/{id}")
