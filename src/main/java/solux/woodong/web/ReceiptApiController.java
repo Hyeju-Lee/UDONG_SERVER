@@ -46,7 +46,7 @@ public class ReceiptApiController {
         }
     }
 
-    @GetMapping("/api/udong/receipt/{clubId}/{useDate}")
+    @GetMapping("/api/udong/receipt/useDate/{clubId}/{useDate}")
     public List<Receipt> responseWithUseDate(@PathVariable Long clubId, @PathVariable String useDate) {
         Club club = clubRepository.findById(clubId)
                 .orElseThrow();
