@@ -53,7 +53,7 @@ public class ReceiptApiController {
         List<Receipt> receipts = club.getReceipts();
         List<Receipt> result = null;
         for (Receipt receipt : receipts) {
-            if (receipt.getUseDate().equals(useDate)) {
+            if (useDate.equals(receipt.getUseDate())) {
                 result.add(receipt);
             }
         }
