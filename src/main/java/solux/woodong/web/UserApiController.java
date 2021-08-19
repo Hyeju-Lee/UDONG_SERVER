@@ -43,6 +43,10 @@ public class UserApiController {
         }
         return null;
     }*/
+    @PostMapping("/api/udong/user")
+    public Long save(@RequestBody UserSaveDto userSaveDto) {
+        return userService.save(userSaveDto);
+    }
 
     @PostMapping("/api/udong/idToken") //idToken 받아와서 user로 저장(user id를 string 형식으로 return 하게 함)
     public String getIdToken(@RequestBody IdTokenSaveDto idTokenSaveDto) {

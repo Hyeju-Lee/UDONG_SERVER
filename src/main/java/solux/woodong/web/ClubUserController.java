@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
 import solux.woodong.web.domain.clubUser.ClubUser;
+import solux.woodong.web.domain.clubUser.ClubUserRepository;
 import solux.woodong.web.domain.user.User;
 import solux.woodong.web.domain.user.UserRepository;
 import solux.woodong.web.dto.clubUser.ClubUserResponseDto;
@@ -38,6 +39,13 @@ public class ClubUserController {
     @GetMapping("/api/udong/clubUser/teamNumber/{id}/{teamNumber}") //set teamNumber
     public Long update(@PathVariable Long id, @PathVariable int teamNumber) {
         return clubUserService.update(id, teamNumber);
+    }
+
+    @GetMapping("/api/udong/clubUser/teamNumber/user/{clubId}")
+    public List<ClubUser> getTeam(@PathVariable Long clubId) {
+        Club club = clubRepository.findById(clubId).orElseThrow();
+        List<ClubUser> clubUsers = club.getClubUsers();
+        return clubUsers;
     }
 
     @GetMapping("/api/udong/clubUser/{id}")
