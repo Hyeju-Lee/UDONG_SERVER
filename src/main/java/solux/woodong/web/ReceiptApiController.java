@@ -1,6 +1,7 @@
 package solux.woodong.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import solux.woodong.web.domain.club.Club;
 import solux.woodong.web.domain.club.ClubRepository;
@@ -13,6 +14,8 @@ import solux.woodong.web.dto.receipt.ReceiptSaveRequestDto;
 import solux.woodong.web.dto.receipt.ReceiptUpdateRequestDto;
 import solux.woodong.web.service.receipt.ReceiptService;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -46,12 +49,39 @@ public class ReceiptApiController {
         }
     }
 
+    @PostMapping("/api/udong/receipt")
+    public void save(@RequestBody ReceiptSaveRequestDto[] requestDtos) {
+        for (ReceiptSaveRequestDto requestDto : requestDtos) {
+            requestDto = ReceiptSaveRequestDto.builder()
+                    .cost(requestDto.getCost())
+                    .title(requestDto.getTitle())
+                    .content(requestDto.getContent())
+                    .picture(requestDto.getPicture())
+                    .useDate(requestDto.getUseDate())
+                    .club(null)
+                    .user(null).build();
+            receiptService.save(requestDto);
+        }
+    }
+
+    @GetMapping("/api/udong/receipt/useDate/{useDate}")
+    public List<Receipt> response(@PathVariable String useDate){
+        List<Receipt> receipts = receiptRepository.findAll();
+        List<Receipt> result = new ArrayList<>();
+        for (Receipt receipt : receipts) {
+            if (receipt.getUseDate().equals(useDate)) {
+                result.add(receipt);
+            }
+        }
+        return result;
+    }
+
     @GetMapping("/api/udong/receipt/useDate/{clubId}/{useDate}")
     public List<Receipt> responseWithUseDate(@PathVariable Long clubId, @PathVariable String useDate) {
         Club club = clubRepository.findById(clubId)
                 .orElseThrow();
         List<Receipt> receipts = club.getReceipts();
-        List<Receipt> result = null;
+        List<Receipt> result = new ArrayList<>();
         for (Receipt receipt : receipts) {
             if (useDate.equals(receipt.getUseDate())) {
                 result.add(receipt);
