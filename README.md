@@ -1,10 +1,11 @@
-![image](https://user-images.githubusercontent.com/71685474/217293869-11c2946c-7cc5-4fe6-9779-8f22afff60c9.png)
+
+<img src="https://user-images.githubusercontent.com/71685474/217293869-11c2946c-7cc5-4fe6-9779-8f22afff60c9.png" width="200" height="200"/>
+</br>
 
 # Udong 우동(우리들의 동아리)
-> 동아리 운영을 위한 어플리케이션
-> 교내 동아리 Solux 프로젝트 발표회에서 우수상 수상
-![image](https://user-images.githubusercontent.com/71685474/217294615-245b05f2-93d3-4343-b637-5a22087eaf49.png)
-
+- 동아리 운영을 위한 어플리케이션
+- 교내 동아리 Solux 프로젝트 발표회에서 우수상 수상
+<img src="https://user-images.githubusercontent.com/71685474/217294615-245b05f2-93d3-4343-b637-5a22087eaf49.png" width="500" height="300"/>
 </br>
 
 ## 1. 제작 기간 & 참여 인원
@@ -23,7 +24,7 @@
 
 ## 3. 사용 기술
 
-#### 'Backend'
+#### `Backend`
   - Spring Boot 2.1.7
   - Java
   - Spring Data JPA
@@ -35,7 +36,7 @@
   - java
   - retrofit2
   - -gson
-#### 'IOS'
+#### `IOS`
   - swift
 
 </br>
@@ -47,6 +48,9 @@
 
 ## 5. 기능
 1. 구글 로그인, 동아리 개설하기
+
+</br>
+
 ![image](https://user-images.githubusercontent.com/71685474/217295207-5ab1edf2-6997-466a-9f94-c3d4ed7446ed.gif)
 
 2. 공지 작성
